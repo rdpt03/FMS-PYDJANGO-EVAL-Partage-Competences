@@ -1,0 +1,56 @@
+@startuml
+left to right direction
+
+' ------acteurs------
+:Utilisateur Déconnecté: as DiscPerson
+:Utilisateur Connecté: as ConnectedPerson
+
+' ------Tâches pour tous------
+(Afficher la liste des compétences disponibles) as TASK2
+(Voir les créneaux anonymes des autres utilisateurs) as TASK1
+
+' ------Tâches spécifiques pour utilisateur connecté------
+' mes competences
+(Afficher mes compétences) as TASK3
+(Supprimer mes competences) as TASK3_BIS
+(Sélectionner compétences à offrir) as TASK4
+
+
+' creneaux
+(Définir mes créneaux disponibles pour aider d'autres utilisateus) <<optional>> as TASK5_OPT
+
+'mes demandes d'aide et volontariat
+(Créer mes demandes d'aide) as TASK6
+
+' celles des autres
+(Consulter les demandes d'aide des autres) as TASK7
+(Accepter ou refuser) as TASK8
+
+(Afficher les propositions de disponibilité des autres utilisateurs ) <<optionnel>> as TASK9_OPT
+
+
+
+' ------Les Flux------
+' Flux pour utilisateur déconnecté
+DiscPerson --> TASK1
+DiscPerson --> TASK2
+
+' Flux pour utilisateur connecté
+ConnectedPerson --> TASK2
+ConnectedPerson --> TASK3
+TASK2 --> TASK4
+' Note explicative
+note on link
+TASK4 dépend de TASK1
+mais n'est pas accessible
+aux utilisateurs déconnectés
+end note
+TASK3 --> TASK3_BIS
+ConnectedPerson --> TASK5_OPT
+ConnectedPerson --> TASK6
+ConnectedPerson --> TASK7
+TASK7 --> TASK8
+ConnectedPerson --> TASK9_OPT
+
+
+@enduml
