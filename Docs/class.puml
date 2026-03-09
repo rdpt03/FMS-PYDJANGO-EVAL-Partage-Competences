@@ -1,0 +1,47 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+class Person {
+    -int : id
+    -String : first_name
+    -String : last_name
+    -String : phone_num
+    -String : address
+}
+class Skill {
+    -int : id
+    -String : name
+}
+
+class Task {
+    -int : id
+    -String : title
+    -String : description
+    -DateTimeField : start_time
+    -DateTimeField : end_time
+    -TaskType : task_type
+}
+
+enum TaskType{
+    REQUEST
+    PROPOSAL
+}
+
+class User{
+    ...
+}
+note left of User
+    Implementé
+    par django
+end note
+
+' connections
+Person --|> User
+Person "0..*" -- "0..*" Skill : person's skills
+Person "1" -- "0..*" Task : requester
+Person "0..1" -- "0..*" Task : helper
+Task -- TaskType : type
+
+
+@enduml
