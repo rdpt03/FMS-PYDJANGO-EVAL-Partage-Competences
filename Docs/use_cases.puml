@@ -12,21 +12,21 @@ left to right direction
 ' ------Tâches spécifiques pour utilisateur connecté------
 ' mes competences
 (Afficher mes compétences) as TASK3
-(Supprimer mes competences) as TASK3_BIS
-(Sélectionner compétences à offrir) as TASK4
+(Supprimer mes competences) as TASK4
+(Sélectionner compétences à offrir) as TASK5
 
 
 ' creneaux
-(Définir mes créneaux disponibles pour aider d'autres utilisateus) <<optional>> as TASK5_OPT
+(Définir mes créneaux disponibles pour aider d'autres utilisateus) <<optional>> as TASK6_OPT
 
 'mes demandes d'aide et volontariat
-(Créer mes demandes d'aide) as TASK6
+(Créer mes demandes d'aide) as TASK7
 
 ' celles des autres
-(Consulter les demandes d'aide des autres) as TASK7
-(Accepter ou refuser) as TASK8
+(Consulter les demandes d'aide des autres) as TASK8
+(Accepter ou refuser) as TASK9
 
-(Afficher les propositions de disponibilité des autres utilisateurs ) <<optionnel>> as TASK9_OPT
+(Afficher les propositions de disponibilité des autres utilisateurs ) <<optionnel>> as TASK10_OPT
 
 
 
@@ -38,19 +38,19 @@ DiscPerson --> TASK2
 ' Flux pour utilisateur connecté
 ConnectedPerson --> TASK2
 ConnectedPerson --> TASK3
-TASK2 --> TASK4
+TASK2 --> TASK5
 ' Note explicative
 note on link
-TASK4 dépend de TASK1
+TASK5 dépend de TASK1
 mais n'est pas accessible
 aux utilisateurs déconnectés
 end note
-TASK3 --> TASK3_BIS
-ConnectedPerson --> TASK5_OPT
-ConnectedPerson --> TASK6
+TASK3 --> TASK4
+ConnectedPerson --> TASK6_OPT
 ConnectedPerson --> TASK7
-TASK7 --> TASK8
-ConnectedPerson --> TASK9_OPT
+ConnectedPerson --> TASK8
+TASK8 --> TASK9
+ConnectedPerson --> TASK10_OPT
 
 
 @enduml
