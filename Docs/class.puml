@@ -18,6 +18,7 @@ class Task {
     -int : id
     -String : title
     -String : description
+    -DateTimeField : publised_date
     -DateTimeField : start_time
     -DateTimeField : end_time
     -TaskType : task_type
