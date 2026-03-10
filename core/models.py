@@ -30,6 +30,7 @@ class Tasks(models.Model):
         REQUEST = "REQUEST", "Request"
         PROPOSAL = "PROPOSAL", "Proposal"
 
+    ###   Task -> Person
     #users relations attributes
     requester = models.ForeignKey(
         Person,
@@ -43,6 +44,7 @@ class Tasks(models.Model):
         null=True,
         related_name="tasks_helping"
     )
+
     #attributes
     users = models.ManyToManyField(User)
     title = models.CharField(max_length=20, blank=False, null=False)
