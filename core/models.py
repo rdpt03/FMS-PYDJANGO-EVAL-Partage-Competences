@@ -39,20 +39,11 @@ class Tasks(models.Model):
         REQUEST = "REQUEST", "Request"
         PROPOSAL = "PROPOSAL", "Proposal"
 
-    ###   Task -> Person
-    #users relations attributes
-    requester = models.ForeignKey(
-        Person,
-        on_delete=models.CASCADE,
-        related_name="tasks_requested"
-    )
-    helper = models.ForeignKey(
-        Person,
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True,
-        related_name="tasks_helping"
-    )
+    ###task -> Skill
+    skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
+    ###   Task -> Person * 2
+    requester = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="tasks_requested")
+    helper = models.ForeignKey(Person, on_delete=models.SET_NULL, blank=True, null=True, related_name="tasks_helping")
 
     #attributes
     users = models.ManyToManyField(User)
