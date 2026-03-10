@@ -22,12 +22,28 @@ class Person(models.Model):
 #skill
 class Skill(models.Model):
     ...
+
+#tasks
 class Tasks(models.Model):
     #enum
     class TaskType(models.TextChoices):
         REQUEST = "REQUEST", "Request"
         PROPOSAL = "PROPOSAL", "Proposal"
 
+    #users relations attributes
+    requester = models.ForeignKey(
+        Person,
+        on_delete=models.CASCADE,
+        related_name="tasks_requested"
+    )
+    helper = models.ForeignKey(
+        Person,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="tasks_helping"
+    )
+    #attributes
     users = models.ManyToManyField(User)
     title = models.CharField(max_length=20, blank=False, null=False)
     published_date = models.DateTimeField()
