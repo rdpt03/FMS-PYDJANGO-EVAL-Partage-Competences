@@ -3,6 +3,17 @@ from django.db import models
 
 # Create your models here.
 
+#skill
+class Skill(models.Model):
+    #typing
+    name: str
+    description: str
+
+    #attributes
+    name = models.CharField(max_length=50, blank=False)
+    description = models.TextField()
+
+
 #person class
 class Person(models.Model):
     #typing
@@ -18,16 +29,8 @@ class Person(models.Model):
     phone_num = models.CharField(max_length=20, blank=True, null=True)
     address = models.CharField(max_length=200, blank=True, null=True)
 
-
-#skill
-class Skill(models.Model):
-    #typing
-    name: str
-    description: str
-
-    #attributes
-    name = models.CharField(max_length=50, blank=False)
-    description = models.TextField()
+    #from Person to Skill
+    skills = models.ManyToManyField(Skill)
 
 #tasks
 class Tasks(models.Model):
