@@ -21,8 +21,21 @@ class Person(models.Model):
 
 #skill
 class Skill(models.Model):
+    ...
+class Tasks(models.Model):
+    #enum
+    class TaskType(models.TextChoices):
+        REQUEST = "REQUEST", "Request"
+        PROPOSAL = "PROPOSAL", "Proposal"
+
     users = models.ManyToManyField(User)
-    name = models.CharField(max_length=20, blank=False, null=False)
+    title = models.CharField(max_length=20, blank=False, null=False)
     published_date = models.DateTimeField()
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
+    #set task_type
+    task_type = models.CharField(
+        max_length=10,
+        choices=TaskType.choices,
+        default=TaskType.REQUEST
+    )
