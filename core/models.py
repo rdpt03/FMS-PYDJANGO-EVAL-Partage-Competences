@@ -21,7 +21,13 @@ class Person(models.Model):
 
 #skill
 class Skill(models.Model):
-    ...
+    #typing
+    name: str
+    description: str
+
+    #attributes
+    name = models.CharField(max_length=50, blank=False)
+    description = models.TextField()
 
 #tasks
 class Tasks(models.Model):
