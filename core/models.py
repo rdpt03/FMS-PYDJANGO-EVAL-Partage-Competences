@@ -23,3 +23,6 @@ class Person(models.Model):
 class Skill(models.Model):
     users = models.ManyToManyField(User)
     name = models.CharField(max_length=20, blank=False, null=False)
+    published_date = models.DateTimeField()
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
