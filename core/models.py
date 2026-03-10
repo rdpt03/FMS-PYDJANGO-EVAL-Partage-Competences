@@ -51,8 +51,6 @@ class Task(models.Model):
     requester = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="tasks_requested")
     helper = models.ForeignKey(Person, on_delete=models.SET_NULL, blank=True, null=True, related_name="tasks_helping")
 
-    #attributes
-    users = models.ManyToManyField(User)
     title = models.CharField(max_length=20, blank=False, null=False)
     published_date = models.DateTimeField()
     start_date = models.DateTimeField()
