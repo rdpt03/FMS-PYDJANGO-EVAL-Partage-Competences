@@ -5,6 +5,12 @@ from django.db import models
 
 #person class
 class Person(models.Model):
+    #typing
+    first_name: str
+    last_name: str
+    phone_num: str | None
+    address: str | None
+
     #user to be associated
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=30, blank=False)
