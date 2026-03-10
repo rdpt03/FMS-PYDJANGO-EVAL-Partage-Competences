@@ -43,6 +43,7 @@ Person "0..*" -- "0..*" Skill : person's skills
 Person "1" -- "0..*" Task : requester
 Person "0..1" -- "0..*" Task : helper
 Task -- TaskType : type
+Task "0..*" -- "1" Skill
 
 
 @enduml
