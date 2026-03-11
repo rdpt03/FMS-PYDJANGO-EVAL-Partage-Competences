@@ -1,0 +1,13 @@
+{% extends "base_connected.html" %}
+{% block base %}
+<div class="container w-50 mt-5">
+    <h2 class="text-center mb-4">Créer une demande d'aide</h2>
+
+    <form method="post">
+        <p  class="text-center mb-4">Competence concerné : {{ skill.name }}</p>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary w-100">Créer une demande d'aide</button>
+    </form>
+</div>
+{% endblock %}
