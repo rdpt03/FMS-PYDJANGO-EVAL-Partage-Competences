@@ -19,6 +19,7 @@ def skills(request):
 
     #get page number
     page_num = request.GET.get('page')
+
     #gets quantity per page
     try:
         quantity_per_page = int(request.GET.get('quantity', 20))
@@ -63,8 +64,11 @@ def tasks(request):
 ###################LOGIN HANDLER########################
 #register TODO docstring
 def register_view(request):
+    #if post got -> create account
     if request.method == "POST":
+        #get the form content
         form = RegisterForm(request.POST)
+        #if is valid
         if form.is_valid():
             # Create user
             user = form.save(commit=False)
@@ -73,7 +77,7 @@ def register_view(request):
 
             # create the Person and connect the user
             person = Person.objects.create(
-                user=user,
+                user=user, #connect Person to User
                 first_name=form.cleaned_data["first_name"],
                 last_name=form.cleaned_data["last_name"],
                 phone_num=form.cleaned_data.get("phone_num"),
@@ -82,7 +86,8 @@ def register_view(request):
 
             # login
             login(request, user)
-            return redirect("home")  # ou qualquer página que queira
+            return redirect("home")
+    #if just a normal enter on page -> show form
     else:
         form = RegisterForm()
 
@@ -90,18 +95,22 @@ def register_view(request):
 
 #login TODO docstring
 def login_view(request):
+    #if post -> login
     if request.method == "POST":
+        #get the form
         form = AuthenticationForm(request, data=request.POST)
+        #if form is valid
         if form.is_valid():
-            # Autentica e loga o usuário
+            # Authenticate user
             user = form.get_user()
             login(request, user)
-            return redirect("home")  # ou qualquer página que queira
+            return redirect("home")
+    # if just a normal enter on page -> show form
     else:
         form = AuthenticationForm()
-    #check if logged in
+    #if already logged in -> just redirect to the right page
     if request.user.is_authenticated:
-        return None
+        return redirect("home")
     else:
         return render(request, "disconnected_pages/login.html", {"form": form})
 
