@@ -22,7 +22,7 @@
             </div>
             <!-- buttons -->
             <div class="mt-auto d-flex gap-2 pt-2">
-                <a class="btn btn-primary flex-grow-1">Demander de l'aide</a>
+                <a class="btn btn-primary flex-grow-1" href="{% url 'ask_help' skill.id %}">Demander de l'aide</a>
                 <a class="btn btn-secondary flex-grow-1" href="{% url 'add_skill_to_profile' skill.id %}">Ajouter à mon profil</a>
             </div>
         </div>
