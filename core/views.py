@@ -1,8 +1,11 @@
+from django.contrib.auth import login, logout
+from django.contrib.auth.forms import AuthenticationForm
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils import timezone
 
-from core.models import Skill, Task
+from core.forms import RegisterForm
+from core.models import Skill, Task, Person
 
 
 # Create your views here.
@@ -28,7 +31,7 @@ def skills(request):
     paginator = Paginator(all_skills, quantity_per_page)
     page_skills = paginator.get_page(page_num)
 
-    return render(request, "disconnected_pages/skills_list.html", {"page_skills": page_skills, "quantity_per_page":quantity_per_page,})
+    return render(request, "skills/list.html", {"page_skills": page_skills, "quantity_per_page":quantity_per_page,})
 
 
 def tasks(request):
@@ -53,5 +56,56 @@ def tasks(request):
     paginator = Paginator(all_tasks, quantity_per_page)
     page_tasks = paginator.get_page(page_num)
 
-    return render(request, "disconnected_pages/tasks_lists.html",
+    return render(request, "tasks/list.html",
                   {"page_tasks": page_tasks, "quantity_per_page": quantity_per_page, })
+
+
+###################LOGIN HANDLER########################
+#register TODO docstring
+def register_view(request):
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            # Create user
+            user = form.save(commit=False)
+            user.email = form.cleaned_data["email"]
+            user.save()
+
+            # create the Person and connect the user
+            person = Person.objects.create(
+                user=user,
+                first_name=form.cleaned_data["first_name"],
+                last_name=form.cleaned_data["last_name"],
+                phone_num=form.cleaned_data.get("phone_num"),
+                address=form.cleaned_data.get("address")
+            )
+
+            # login
+            login(request, user)
+            return redirect("home")  # ou qualquer página que queira
+    else:
+        form = RegisterForm()
+
+    return render(request, "disconnected_pages/create_account.html", {"form": form})
+
+#login TODO docstring
+def login_view(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            # Autentica e loga o usuário
+            user = form.get_user()
+            login(request, user)
+            return redirect("home")  # ou qualquer página que queira
+    else:
+        form = AuthenticationForm()
+    #check if logged in
+    if request.user.is_authenticated:
+        return None
+    else:
+        return render(request, "disconnected_pages/login.html", {"form": form})
+
+#logout TODO docstring
+def logout_view(request):
+    logout(request)
+    return redirect("login")  # redireciona para a tela de login
