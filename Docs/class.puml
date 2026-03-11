@@ -12,6 +12,7 @@ class Person {
 class Skill {
     -int : id
     -String : name
+    -String . image_url
 }
 
 class Task {
