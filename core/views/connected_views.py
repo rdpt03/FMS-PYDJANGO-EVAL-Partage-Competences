@@ -1,9 +1,12 @@
+from django.contrib import messages
 from django.core.paginator import Paginator
+from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 
 from core.forms import TaskForm
-from core.models import Skill
+from core.models import Skill, Task
+
 
 #function to show skill for connected people
 def skills_connected(request):
@@ -84,6 +87,20 @@ def ask_help(request, skill_id):
         form = TaskForm(request.POST)
         #if is valid
         if form.is_valid():
+            #check if the timetable is busy
+            start = form.cleaned_data["start_date"]
+            end = form.cleaned_data["end_date"]
+
+            conflict = Task.objects.filter(
+                Q(start_date__lt=end) &
+                Q(end_date__gt=start)
+            ).exists()
+
+            if conflict:
+                #messages.error(request, "Ce créneau est déjà réservé.")
+                messages = [{"text":"Vous avez deja une Tache dans ce creneaux", "code":"danger"}]
+                return render(request, "tasks/ask_help.html", {"skill": skill, "form": form , "messages":messages})
+
             #get task
             task = form.save(commit=False)
             task.skill = skill #associate skill
