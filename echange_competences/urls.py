@@ -24,7 +24,12 @@ urlpatterns = [
     path('', views.home, name='home'),
 
     path('skills/', views.skills_connected, name='skills_connected'),
+    path('add_skill_to_profile/<int:id>/', views.add_skill_to_profile, name='add_skill_to_profile'),
     #path('tasks/askhelp', views.ask_help, name='tasks'),
+
+
+
+
     path('guest/skills/', views.skills_disconnected, name='skills_disconnected'),
     path('guest/tasks/', views.tasks_disconnected, name='tasks_disconnected'),
 
