@@ -60,3 +60,11 @@ def add_skill_to_profile(request,id):
     #associate and redirect
     request.user.person.skills.add(skill)
     return redirect("skills_connected")
+
+def remove_skill_from_profile(request,id):
+    #get skill or 404
+    skill = get_object_or_404(Skill, id=id)
+
+    #associate and redirect
+    request.user.person.skills.remove(skill)
+    return redirect("user_skills")
