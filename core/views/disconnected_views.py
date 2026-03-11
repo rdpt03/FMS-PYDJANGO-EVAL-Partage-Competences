@@ -1,11 +1,13 @@
 
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils import timezone
 
 from core.models import Skill, Task
 
 def skills_disconnected(request):
+    if request.user.is_authenticated:
+        return redirect("skills_connected")
     #get all skills
     all_skills = Skill.objects.all().order_by('name')
 
@@ -24,11 +26,8 @@ def skills_disconnected(request):
     paginator = Paginator(all_skills, quantity_per_page)
     page_skills = paginator.get_page(page_num)
 
-    #check if logged in or not to choose template
-    if request.user.is_authenticated:
-        template = "skills/list_connected.html"
-    else:
-        template = "skills/list_disconnected.html"
+
+    template = "skills/list_disconnected.html"
 
     return render(request,template, {"page_skills": page_skills, "quantity_per_page":quantity_per_page,})
 
