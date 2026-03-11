@@ -1,0 +1,64 @@
+{% extends "../base_disconnected.html" %}
+{% block base %}
+
+
+<div class="container d-flex flex-column align-items-center">
+    <h1>Competences</h1>
+    {% for task in page_tasks %}
+
+        <div class="card w-75 mb-3 shadow-sm p-2">
+            <div class="d-flex align-items-start">
+                <img src="{{ null|default:'https://img.freepik.com/photos-gratuite/touristes-montent-colline-au-lever-du-soleil_1150-19692.jpg?semt=ais_hybrid&w=740&q=80' }}" class="card-img-top" alt="{{ task.name }}" style="height: 150px; width:150px; object-fit: cover;">
+                <!-- Parte 2: Textos empilhados ao lado da imagem -->
+                <div class="d-flex flex-column ms-3 flex-grow-1">
+                    <h5>{{ task.title }}</h5>
+                    <p>publié {{ task.published_date }}</p>
+                    <p></p>
+                    <p class="mb-1">{{ task.description|default:"Pas de description"|truncatechars:100 }}</p>
+                </div>
+
+
+                <div class="d-flex flex-column ms-3 text-end">
+                    <p class="mb-1">Categorie</p>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-center">Aucune compétence disponible.</p>
+    {% endfor %}
+
+
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <!--page precedente-->
+            {% if page_tasks.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_tasks.previous_page_number }}">Précédent</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link">Précédent</span></li>
+            {% endif %}
+
+            <!--numero de page-->
+            {% for num in page_tasks.paginator.page_range %}
+                <!--desactive-->
+                {% if page_tasks.number == num %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                <!--active-->
+                {% elif num > page_tasks.number|add:'-5' and num < page_tasks.number|add:'5' %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}&quantity={{ quantity_per_page }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_tasks.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_tasks.next_page_number }}&quantity={{ quantity_per_page }}">Suivant</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled"><span class="page-link">Suivant</span></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}
