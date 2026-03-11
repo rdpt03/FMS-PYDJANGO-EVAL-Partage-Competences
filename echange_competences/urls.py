@@ -22,8 +22,11 @@ from core import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('skills/', views.skills, name='skills'),
-    path('tasks/', views.tasks, name='tasks'),
+
+    path('skills/', views.skills_connected, name='skills_connected'),
+    #path('tasks/askhelp', views.ask_help, name='tasks'),
+    path('guest/skills/', views.skills_disconnected, name='skills_disconnected'),
+    path('guest/tasks/', views.tasks_disconnected, name='tasks_disconnected'),
 
     # login register
     path('register/', views.register_view, name='register'),
