@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from core.models import Skill
 
 #function to show skill for connected people
@@ -29,3 +29,12 @@ def skills_connected(request):
         template = "skills/list_disconnected.html"
 
     return render(request,template, {"page_skills": page_skills, "quantity_per_page":quantity_per_page,})
+
+
+def add_skill_to_profile(request,id):
+    #get skill or 404
+    skill = get_object_or_404(Skill, id=id)
+
+    #associate and redirect
+    request.user.person.skills.add(skill)
+    return redirect("skills_connected")
