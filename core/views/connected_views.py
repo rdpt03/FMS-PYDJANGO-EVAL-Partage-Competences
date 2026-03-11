@@ -24,13 +24,33 @@ def skills_connected(request):
     paginator = Paginator(all_skills, quantity_per_page)
     page_skills = paginator.get_page(page_num)
 
-    #check if logged in or not to choose template
-    if request.user.is_authenticated:
-        template = "skills/list_connected.html"
-    else:
-        template = "skills/list_disconnected.html"
+    template = "skills/list_connected.html"
 
     return render(request,template, {"page_skills": page_skills, "quantity_per_page":quantity_per_page,})
+
+
+def user_skills(request):
+    if not request.user.is_authenticated:
+        return redirect("skills_disconnected")
+    #get all skills
+    all_skills = request.user.person.skills.all()
+
+    #get page number
+    page_num = request.GET.get('page')
+
+    #gets quantity per page
+    try:
+        quantity_per_page = int(request.GET.get('quantity', 20))
+        if quantity_per_page <= 0:
+            quantity_per_page = 20
+    except ValueError:
+        quantity_per_page = 20
+
+    #paginator
+    paginator = Paginator(all_skills, quantity_per_page)
+    page_skills = paginator.get_page(page_num)
+
+    return render(request,"skills/list_profile_skills.html", {"page_skills": page_skills, "quantity_per_page":quantity_per_page,})
 
 
 def add_skill_to_profile(request,id):
