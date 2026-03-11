@@ -19,6 +19,17 @@
                 <div class="d-flex flex-column ms-3 text-end">
                     <p class="mb-1">Categorie</p>
                 </div>
+                <div class="d-flex flex-column ms-3 text-end">
+                    <!-- button to delete -->
+                    <a href="{% url 'remove_skill_from_profile' skill.id %}"
+                        onclick="return confirm('Voulez-vous vraiment supprimer cette compétence ?');">
+                        <svg width="25" height="25" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M26.6668 12.375L24.0068 27.9762C23.7827 29.2911 22.6751 30.25 21.3806 30.25H10.6198C9.32522 30.25 8.21763 29.2911 7.99344 27.9762L5.3335 12.375" fill="#AE0000"/>
+                            <path d="M26.6668 12.375L24.0068 27.9762C23.7827 29.2911 22.6751 30.25 21.3806 30.25H10.6198C9.32522 30.25 8.21763 29.2911 7.99344 27.9762L5.3335 12.375H26.6668Z" stroke="#AE0000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M28 8.25H20.5M20.5 8.25V5.5C20.5 3.98122 19.3061 2.75 17.8333 2.75H14.1667C12.6939 2.75 11.5 3.98122 11.5 5.5V8.25M20.5 8.25H11.5M4 8.25H11.5" stroke="#AE0000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
             </div>
         </div>
     {% empty %}
