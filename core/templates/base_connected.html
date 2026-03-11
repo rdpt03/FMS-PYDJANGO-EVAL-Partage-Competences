@@ -8,32 +8,39 @@
             <!--LEFT-->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{% url 'skills' %}">Competences</a>
+                    <a class="nav-link" aria-current="page" href="{% url 'skills_connected' %}">Competences</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{% url 'tasks' %}">Creneaux</a>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
+                    <a class="nav-link" aria-current="page" href="">Demandes d'aide</a>
                 </li>
             </ul>
 
             <!--RIGHT-->
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{% url 'register' %}">Créer un compte</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Mes activités
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Mes demandes d'aide</a></li>
+                        <li><a class="dropdown-item" href="#">Demandes d'aide acceptés</a></li>
+                        <li><a class="dropdown-item" href="#">Mes competences</a></li>
+                    </ul>
                 </li>
+
+
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{% url 'login' %}">Se connecter</a>
+                    <a class="nav-link" aria-current="page" href="">Mon Compte</a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'logout' %}">
+                        <svg width="25" height="25" viewBox="0 0 41 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.5 23H32.4583M32.4583 23L27.3333 28.75M32.4583 23L27.3333 17.25" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M32.4582 11.5V9.58333C32.4582 7.46624 30.9285 5.75 29.0415 5.75H11.9582C10.0712 5.75 8.5415 7.46624 8.5415 9.58333V36.4167C8.5415 38.5338 10.0712 40.25 11.9582 40.25H29.0415C30.9285 40.25 32.4582 38.5338 32.4582 36.4167V34.5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
                 </li>
             </ul>
         </div>
@@ -43,7 +50,7 @@
 
 <style>
     .bg-dark-blue {
-        background-color: #ff0000; /* Azul escuro customizado */
+        background-color: #0061A6; /* Azul escuro customizado */
     }
 </style>
 
