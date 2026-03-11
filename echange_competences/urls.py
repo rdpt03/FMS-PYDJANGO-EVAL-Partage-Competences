@@ -26,6 +26,7 @@ urlpatterns = [
     path('skills/', views.skills_connected, name='skills_connected'),
     path('user_skills/', views.user_skills, name='user_skills'),
     path('add_skill_to_profile/<int:id>/', views.add_skill_to_profile, name='add_skill_to_profile'),
+    path('remove_skill_from_profile/<int:id>/', views.remove_skill_from_profile, name='remove_skill_from_profile'),
 
     #path('tasks/askhelp', views.ask_help, name='tasks'),
 
