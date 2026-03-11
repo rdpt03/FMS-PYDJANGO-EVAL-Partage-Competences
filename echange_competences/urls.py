@@ -24,11 +24,11 @@ urlpatterns = [
     path('', views.home, name='home'),
 
     path('skills/', views.skills_connected, name='skills_connected'),
-    path('user_skills/', views.user_skills, name='user_skills'),
-    path('add_skill_to_profile/<int:id>/', views.add_skill_to_profile, name='add_skill_to_profile'),
-    path('remove_skill_from_profile/<int:id>/', views.remove_skill_from_profile, name='remove_skill_from_profile'),
+    path('skills/user_skills/', views.user_skills, name='user_skills'),
+    path('skills/add_to_profile/<int:id>/', views.add_skill_to_profile, name='add_skill_to_profile'),
+    path('skills/remove_from_profile/<int:id>/', views.remove_skill_from_profile, name='remove_skill_from_profile'),
 
-    #path('tasks/askhelp', views.ask_help, name='tasks'),
+    path('tasks/ask_help/<int:skill_id>', views.ask_help, name='ask_help'),
 
 
 
