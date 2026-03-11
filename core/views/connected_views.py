@@ -4,6 +4,8 @@ from core.models import Skill
 
 #function to show skill for connected people
 def skills_connected(request):
+    if not request.user.is_authenticated:
+        return redirect("skills_disconnected")
     #get all skills
     all_skills = Skill.objects.exclude(id__in=request.user.person.skills.values_list('id', flat=True)).order_by('name')
 
