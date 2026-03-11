@@ -53,6 +53,7 @@ class Task(models.Model):
     helper = models.ForeignKey(Person, on_delete=models.SET_NULL, blank=True, null=True, related_name="tasks_helping")
 
     title = models.CharField(max_length=20, blank=False, null=False)
+    description = models.TextField(null=True)
     published_date = models.DateTimeField()
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
