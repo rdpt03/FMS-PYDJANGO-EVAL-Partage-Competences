@@ -1,5 +1,8 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
+from django.utils import timezone
+
+from core.forms import TaskForm
 from core.models import Skill
 
 #function to show skill for connected people
@@ -68,3 +71,28 @@ def remove_skill_from_profile(request,id):
     #associate and redirect
     request.user.person.skills.remove(skill)
     return redirect("user_skills")
+
+
+#-------------------------------TASKS-------------------------------
+def ask_help(request, skill_id):
+    #get skill
+    skill = Skill.objects.get(id=skill_id)
+
+    #if cliked into submit
+    if request.method == "POST":
+        #get form content
+        form = TaskForm(request.POST)
+        #if is valid
+        if form.is_valid():
+            #get task
+            task = form.save(commit=False)
+            task.skill = skill #associate skill
+            task.requester = request.user.person #associate requester
+            task.published_date = timezone.now() #set publisher date as now
+            task.save() #save into DB
+            return redirect("home") #go back to #TODO my help requests
+    #create form
+    else:
+        form = TaskForm()
+    #show
+    return render(request, "tasks/ask_help.html", {"skill":skill, "form": form})
