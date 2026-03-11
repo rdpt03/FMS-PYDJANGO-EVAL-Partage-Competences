@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block sub_base %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark-blue">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Partage de competences</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!--LEFT-->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'skills' %}">Competences</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'tasks' %}">Creneaux</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!--RIGHT-->
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'register' %}">Créer un compte</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'login' %}">Se connecter</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% block base %}{% endblock %}
+
+<style>
+    .bg-dark-blue {
+        background-color: #ff0000; /* Azul escuro customizado */
+    }
+</style>
+
+{% endblock %}
