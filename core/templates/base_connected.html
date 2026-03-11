@@ -46,6 +46,23 @@
         </div>
     </div>
 </nav>
+{% if messages %}
+    <div aria-live="polite" aria-atomic="true" class="position-relative">
+        <div class="toast-container position-fixed top-0 end-0 p-3">
+            {% for message in messages %}
+            <div class="toast align-items-center text-bg-{{ message.code }} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        {{ message.text }}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endif %}
 {% block base %}{% endblock %}
 
 <style>
@@ -53,5 +70,30 @@
         background-color: #0061A6; /* Azul escuro customizado */
     }
 </style>
+
+
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        //get alert box
+        const alerts = document.querySelectorAll('.alert');
+        //for each alert
+        alerts.forEach((alert) => {
+            setTimeout(() => {
+                //remove with fade after 3sec+0.5sec animation
+                alert.classList.remove('show');
+                alert.classList.add('fade');
+                setTimeout(() => alert.remove(), 500); // remove depois da animação
+            }, 3000); // 3000ms = 3 segundos
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const toastElList = [].slice.call(document.querySelectorAll('.toast'))
+        toastElList.map(toastEl => {
+            new bootstrap.Toast(toastEl, { delay: 5000 }).show()
+        })
+    })
+</script>
+
 
 {% endblock %}
