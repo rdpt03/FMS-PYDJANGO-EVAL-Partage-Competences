@@ -32,7 +32,13 @@ def skills(request):
     paginator = Paginator(all_skills, quantity_per_page)
     page_skills = paginator.get_page(page_num)
 
-    return render(request, "skills/list.html", {"page_skills": page_skills, "quantity_per_page":quantity_per_page,})
+    #check if logged in or not to choose template
+    if request.user.is_authenticated:
+        template = "skills/list_connected.html"
+    else:
+        template = "skills/list_disconnected.html"
+
+    return render(request,template, {"page_skills": page_skills, "quantity_per_page":quantity_per_page,})
 
 
 def tasks(request):
