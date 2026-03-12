@@ -31,6 +31,8 @@ urlpatterns = [
     #tasks
     path('tasks/ask_help/<int:skill_id>', views.ask_help, name='ask_help'),
     path('tasks/my_tasks', views.my_tasks, name='my_tasks'),
+    path('tasks/requests', views.help_requests_tasks, name='help_requests_tasks'),
+    path('tasks/accept_task/<int:task_id>', views.accept_task, name='accept_task'),
 
 
 
