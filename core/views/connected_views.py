@@ -101,6 +101,17 @@ def ask_help(request, skill_id):
                 messages = [{"text":"Vous avez deja une Tache dans ce creneaux", "code":"danger"}]
                 return render(request, "tasks/ask_help.html", {"skill": skill, "form": form , "messages":messages})
 
+            #check if i still helping someone
+            conflict_helping = request.user.person.tasks_helping.all().filter(
+                Q(start_date__lt=end) &
+                Q(end_date__gt=start)
+            ).exists()
+
+            if conflict_helping:
+                # messages.error(request, "Ce créneau est déjà réservé.")
+                messages = [{"text": "Vous aidez deja un utilisateur dans ce creneau", "code": "danger"}]
+                return render(request, "tasks/ask_help.html", {"skill": skill, "form": form, "messages": messages})
+
             #get task
             task = form.save(commit=False)
             task.skill = skill #associate skill
