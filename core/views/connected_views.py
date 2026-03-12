@@ -91,13 +91,13 @@ def ask_help(request, skill_id):
             start = form.cleaned_data["start_date"]
             end = form.cleaned_data["end_date"]
 
-            conflict = Task.objects.filter(
+            #check if i have my own tasks on this timetable
+            conflict_my_tasks = request.user.person.tasks_requested.all().filter(
                 Q(start_date__lt=end) &
                 Q(end_date__gt=start)
             ).exists()
 
-            if conflict:
-                #messages.error(request, "Ce créneau est déjà réservé.")
+            if conflict_my_tasks:
                 messages = [{"text":"Vous avez deja une Tache dans ce creneaux", "code":"danger"}]
                 return render(request, "tasks/ask_help.html", {"skill": skill, "form": form , "messages":messages})
 
