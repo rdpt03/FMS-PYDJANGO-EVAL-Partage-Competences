@@ -18,11 +18,7 @@ class RegisterForm(UserCreationForm):
 
 
 class TaskForm(forms.ModelForm):
+    date = forms.DateField(widget=forms.DateInput(attrs={"type": "date"}), label="Date")
     class Meta:
         model = Task
-        fields = ["title", "description", "start_date", "end_date"]
-
-        widgets = {
-            "start_date": forms.DateTimeInput(attrs={"type": "datetime-local"}),
-            "end_date": forms.DateTimeInput(attrs={"type": "datetime-local"}),
-        }
+        fields = ["title", "description"]
