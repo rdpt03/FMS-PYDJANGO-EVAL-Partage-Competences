@@ -178,8 +178,8 @@ def help_requests_tasks(request):
     all_tasks = Task.objects.all().filter(
         helper = None,
         task_type = Task.TaskType.REQUEST,
-        skill__in=request.user.person.skills.all()
-        #start_date__gt = timezone.now()
+        skill__in=request.user.person.skills.all(),
+        start_date__gt = timezone.now(),
     ).exclude(
         requester=request.user.person #don't show my own
     ).order_by('-published_date')
