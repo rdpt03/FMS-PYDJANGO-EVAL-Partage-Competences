@@ -148,6 +148,8 @@ def help_requests_tasks(request):
         task_type = Task.TaskType.REQUEST,
         skill__in=request.user.person.skills.all()
         #start_date__gt = timezone.now()
+    ).exclude(
+        requester=request.user.person #don't show my own
     ).order_by('-published_date')
 
     # get page number
