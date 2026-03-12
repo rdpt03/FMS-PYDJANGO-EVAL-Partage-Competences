@@ -142,6 +142,8 @@ def my_tasks(request):
 
 
 def help_requests_tasks(request):
+    #get messages
+    messages_codes = request.session.pop('my_messages', [])
     # get all tasks
     all_tasks = Task.objects.all().filter(
         helper = None,
