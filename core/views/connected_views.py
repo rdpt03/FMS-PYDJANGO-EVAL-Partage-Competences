@@ -91,6 +91,11 @@ def ask_help(request, skill_id):
             start = form.cleaned_data["start_date"]
             end = form.cleaned_data["end_date"]
 
+            #check if date end is before start, it shouldn't
+            if end < start:
+                messages_end_before_start = [{"text": "Vous pouvez pas mettre la fin avant le debut", "code": "danger"}]
+                return render(request, "tasks/ask_help.html", {"skill": skill, "form": form, "messages": messages_end_before_start})
+
             #check if i have my own tasks on this timetable
             conflict_my_tasks = request.user.person.tasks_requested.all().filter(
                 Q(start_date__lt=end) &
