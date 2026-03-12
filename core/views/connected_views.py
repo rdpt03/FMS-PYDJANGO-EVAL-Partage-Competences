@@ -92,6 +92,12 @@ def ask_help(request, skill_id):
             #check if the timetable is busy
             date = form.cleaned_data["date"]
 
+            #check if is before today
+            if date < timezone.now().date():
+                messages_end_before_start = [{"text": "Vous pouvez pas créer une demande d'aide pour le passé", "code": "danger"}]
+                return render(request, "tasks/ask_help.html", {"skill": skill, "form": form, "messages": messages_end_before_start})
+
+
             # define hours
             start = datetime.datetime.combine(date, datetime.time(hour=0, minute=0))
             end = datetime.datetime.combine(date, datetime.time(hour=23, minute=59))
