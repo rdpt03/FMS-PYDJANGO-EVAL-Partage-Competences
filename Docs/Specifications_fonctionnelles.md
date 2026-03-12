@@ -42,7 +42,7 @@ En réponse aux besoins exprimés dans l’énoncé, l’application web **Écha
 -   Affiche les demandes d’aide existantes pour lesquelles l’utilisateur possède la compétence correspondante.
 -   Montre **prénom, nom et email** de la personne à aider.
 
-**UC10 – Accepter ou refuser une demande d’aide** (`TASK9`)
+**UC10 – Accepter une demande d’aide** (`TASK9`)
 -   Permet à l’utilisateur de se rendre volontaire pour aider une autre personne sur un créneau spécifique.
 -   Une fois accepté, le créneau n’apparaît plus dans les autres affichages pour ce créneau précis.
 
