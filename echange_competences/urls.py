@@ -22,14 +22,15 @@ from core import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-
+    #skills
     path('skills/', views.skills_connected, name='skills_connected'),
     path('skills/user_skills/', views.user_skills, name='user_skills'),
     path('skills/add_to_profile/<int:id>/', views.add_skill_to_profile, name='add_skill_to_profile'),
     path('skills/remove_from_profile/<int:id>/', views.remove_skill_from_profile, name='remove_skill_from_profile'),
 
+    #tasks
     path('tasks/ask_help/<int:skill_id>', views.ask_help, name='ask_help'),
-
+    path('tasks/my_tasks', views.my_tasks, name='my_tasks'),
 
 
 
