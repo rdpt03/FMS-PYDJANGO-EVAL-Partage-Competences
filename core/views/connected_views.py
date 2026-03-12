@@ -123,8 +123,6 @@ def my_tasks(request):
         #start_date__gt = timezone.now()
     ).order_by('-published_date')
 
-    print(all_tasks)
-
     # get page number
     page_num = request.GET.get('page')
     # gets quantity per page
@@ -141,3 +139,41 @@ def my_tasks(request):
 
     return render(request, "tasks/my_tasks_list.html",
                   {"page_tasks": page_tasks, "quantity_per_page": quantity_per_page, })
+
+
+def help_requests_tasks(request):
+    # get all tasks
+    all_tasks = Task.objects.all().filter(
+        helper = None,
+        task_type = Task.TaskType.REQUEST,
+        skill__in=request.user.person.skills.all()
+        #start_date__gt = timezone.now()
+    ).order_by('-published_date')
+
+    # get page number
+    page_num = request.GET.get('page')
+    # gets quantity per page
+    try:
+        quantity_per_page = int(request.GET.get('quantity', 20))
+        if quantity_per_page <= 0:
+            quantity_per_page = 20
+    except ValueError:
+        quantity_per_page = 20
+
+    # paginator
+    paginator = Paginator(all_tasks, quantity_per_page)
+    page_tasks = paginator.get_page(page_num)
+
+    return render(request, "tasks/help_requests.html",
+                  {"page_tasks": page_tasks, "quantity_per_page": quantity_per_page, })
+
+
+def accept_task(request,task_id):
+    #get skill or 404
+    task = get_object_or_404(Task, id=task_id)
+
+    #associate and redirect
+    task.helper = request.user.person
+    # Save changes to the database!
+    task.save()
+    return redirect("help_requests_tasks")
