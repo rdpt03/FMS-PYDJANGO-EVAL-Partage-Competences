@@ -176,6 +176,33 @@ def accept_task(request,task_id):
     #get skill or 404
     task = get_object_or_404(Task, id=task_id)
 
+    #get dates
+    start = task.start_date
+    end = task.end_date
+    # check if i have my own tasks on this timetable
+    conflict_my_tasks = request.user.person.tasks_requested.all().filter(
+        Q(start_date__lt=end) &
+        Q(end_date__gt=start)
+    ).exists()
+
+    if conflict_my_tasks:
+        # messages.error(request, "Ce créneau est déjà réservé.")
+        messages_my_tasks = [{"text": "Vous avez deja une Tache dans ce creneaux", "code": "danger"}]
+        request.session['my_messages'] = messages_my_tasks
+        return redirect("help_requests_tasks")
+
+    # check if i still helping someone
+    conflict_helping = request.user.person.tasks_helping.all().filter(
+        Q(start_date__lt=end) &
+        Q(end_date__gt=start)
+    ).exists()
+
+    if conflict_helping:
+        # messages.error(request, "Ce créneau est déjà réservé.")
+        messages_helping = [{"text": "Vous aidez deja un utilisateur dans ce creneau", "code": "danger"}]
+        request.session['my_messages'] = messages_helping
+        return redirect("help_requests_tasks")
+
     #associate and redirect
     task.helper = request.user.person
     # Save changes to the database!
