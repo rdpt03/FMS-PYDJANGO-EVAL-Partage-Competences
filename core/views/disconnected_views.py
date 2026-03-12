@@ -54,5 +54,5 @@ def tasks_disconnected(request):
     paginator = Paginator(all_tasks, quantity_per_page)
     page_tasks = paginator.get_page(page_num)
 
-    return render(request, "tasks/list.html",
+    return render(request, "tasks/list_disconnected.html",
                   {"page_tasks": page_tasks, "quantity_per_page": quantity_per_page, })
