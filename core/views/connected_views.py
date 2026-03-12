@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Q
@@ -88,8 +90,11 @@ def ask_help(request, skill_id):
         #if is valid
         if form.is_valid():
             #check if the timetable is busy
-            start = form.cleaned_data["start_date"]
-            end = form.cleaned_data["end_date"]
+            date = form.cleaned_data["date"]
+
+            # define hours
+            start = datetime.datetime.combine(date, datetime.time(hour=0, minute=0))
+            end = datetime.datetime.combine(date, datetime.time(hour=23, minute=59))
 
             #check if date end is before start, it shouldn't
             if end < start:
@@ -122,6 +127,9 @@ def ask_help(request, skill_id):
             task.skill = skill #associate skill
             task.requester = request.user.person #associate requester
             task.published_date = timezone.now() #set publisher date as now
+            #add start end date
+            task.start_date = start
+            task.end_date = end
             task.save() #save into DB
             return redirect("home") #go back to #TODO my help requests
     #create form
