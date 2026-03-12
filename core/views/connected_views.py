@@ -238,3 +238,30 @@ def accept_task(request,task_id):
     # Save changes to the database!
     task.save()
     return redirect("help_requests_tasks")
+
+
+def my_helping_tasks(request):
+    # get all tasks
+    all_tasks = request.user.person.tasks_helping.all().order_by('-published_date')
+    #all_tasks = Task.objects.all().filter(
+    #    requester = request.user.person,
+    #    task_type = Task.TaskType.REQUEST,
+    #    #start_date__gt = timezone.now()
+    #).order_by('-published_date')
+
+    # get page number
+    page_num = request.GET.get('page')
+    # gets quantity per page
+    try:
+        quantity_per_page = int(request.GET.get('quantity', 20))
+        if quantity_per_page <= 0:
+            quantity_per_page = 20
+    except ValueError:
+        quantity_per_page = 20
+
+    # paginator
+    paginator = Paginator(all_tasks, quantity_per_page)
+    page_tasks = paginator.get_page(page_num)
+
+    return render(request, "tasks/my_tasks_list.html",
+                  {"page_tasks": page_tasks, "quantity_per_page": quantity_per_page, })
