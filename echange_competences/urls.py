@@ -33,7 +33,7 @@ urlpatterns = [
     path('tasks/my_tasks', views.my_tasks, name='my_tasks'),
     path('tasks/requests', views.help_requests_tasks, name='help_requests_tasks'),
     path('tasks/accept_task/<int:task_id>', views.accept_task, name='accept_task'),
-
+    path('tasks/helping', views.my_helping_tasks, name='my_helping_tasks'),
 
 
     path('guest/skills/', views.skills_disconnected, name='skills_disconnected'),
