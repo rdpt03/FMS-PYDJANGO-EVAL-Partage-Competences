@@ -169,7 +169,7 @@ def help_requests_tasks(request):
     page_tasks = paginator.get_page(page_num)
 
     return render(request, "tasks/help_requests.html",
-                  {"page_tasks": page_tasks, "quantity_per_page": quantity_per_page, })
+                  {"page_tasks": page_tasks, "quantity_per_page": quantity_per_page, "messages":messages_codes })
 
 
 def accept_task(request,task_id):
